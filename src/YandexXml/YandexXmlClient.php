@@ -871,6 +871,9 @@ class YandexXmlClient
      {
          $wordstat = preg_split('/,/', $this->response->wordstat);
          $this->wordstat = array();
+         if(empty((array) $this->response->wordstat)){
+             return;
+         }
          foreach ($wordstat as $word) {
              list($word, $count) = preg_split('/:/', $word);
              $this->wordstat[$word] = intval(trim($count));
@@ -968,25 +971,24 @@ class YandexXmlClient
      */
     public function getResults()
     {
-        if (empty($this->results)) {
-            if (empty($this->error) && $this->response) {
-                foreach ($this->response->results->grouping->group as $group) {
-                    $res = new \stdClass();
-                    $res->url       = $group->doc->url;
-                    $res->domain    = $group->doc->domain;
-                    $res->title     = isset($group->doc->title) ? $group->doc->title : $group->doc->url;
-                    $res->headline  = isset($group->doc->headline) ? $group->doc->headline : null;
-                    $res->passages  = isset($group->doc->passages->passage) ? $group->doc->passages->passage : null;
-                    $res->sitelinks = isset($group->doc->snippets->sitelinks->link) ? $group->doc->snippets->sitelinks->link : null;
+        $this->results = array();
+        if ($this->response) {
+            foreach ($this->response->results->grouping->group as $group) {
+                $res = new \stdClass();
+                $res->url       = (string) $group->doc->url;
+                $res->domain    = (string) $group->doc->domain;
+                $res->title     = isset($group->doc->title) ? $this->highlight($group->doc->title) : $res->url;
+                $res->headline  = isset($group->doc->headline) ? $this->highlight($group->doc->headline) : null;
+                $res->passages  = isset($group->doc->passages->passage) ? $this->highlight($group->doc->passages) : null;
+                $res->sitelinks = isset($group->doc->snippets->sitelinks->link) ? $this->highlight($group->doc->snippets->sitelinks->link) : null;
 
-                    array_push($this->results, $res);
-                }
+                $this->results[] = $res;
             }
         }
 
         return $this->results;
     }
-
+    
     /**
      * return pagebar array
      *
