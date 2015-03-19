@@ -1,7 +1,10 @@
-# Yandex
+# YandexXml
 
 Класс для работы с поисковым сервисом Яндекс.XML.
+Форк https://github.com/AntonShevchuk/yandex
 
-Рабочий пример можно опробовать на домашней страничке http://yandex.hohli.com/
-
-Более подробная информация доступна в моём блоге http://anton.shevchuk.name/php/php-class-for-yandex-xml/
+Подготовлен к использованию через Composer (добавлен composer.json, заданы требования)
+Определен автолоадер (согласно psr-0)
+Класс переименован в YandexXml и перемещен в namespace AntonShevchuk\YandexXml
+Добавлен AntonShevchuk\YandexXml\Exceptions\YandexXmlException (выбрасывается в методе _checkErrors)
+Добавлены методы для проксирования запроса (если сервер с приложением не расположен на ip, заданном в настройках yandex.xml)
