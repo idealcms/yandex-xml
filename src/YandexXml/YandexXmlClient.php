@@ -215,7 +215,7 @@ class YandexXmlClient
      public function __construct($user, $key)
      {
          if (empty($user) or empty($key)) {
-             throw new YandexXmlException(null, 0);
+             throw new YandexXmlException(YandexXmlException::solveMessage(0));
          }
          $this->user = $user;
          $this->key  = $key;
@@ -724,7 +724,7 @@ class YandexXmlClient
         if (empty($this->query)
             && empty($this->host)
             ) {
-            throw new YandexXmlException(null, 2);
+            throw new YandexXmlException(YandexXmlException::solveMessage(2));
         }
 
         $xml = new \SimpleXMLElement("<?xml version='1.0' encoding='utf-8'?><request></request>");
@@ -858,7 +858,7 @@ class YandexXmlClient
     {
         if (isset($this->response->error)) {
             $code = (int) $this->response->error->attributes()->code[0];
-            throw new YandexXmlException($this->response->error, $code);
+            throw new YandexXmlException(YandexXmlException::solveMessage($code, $this->response->error));
         }
     }
 
