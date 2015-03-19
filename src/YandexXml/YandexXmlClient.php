@@ -687,7 +687,7 @@ class YandexXmlClient
      * @param  type      $passwd
      * @return YandexXml
      */
-    public function setProxy($host, $port = 80, $user = null, $passwd = null)
+    public function setProxy($host = '', $port = 80, $user = null, $passwd = null)
     {
         $this->proxy = array(
             'host' => $host,
@@ -697,6 +697,21 @@ class YandexXmlClient
         );
 
         return $this;
+    }
+    
+    /**
+     * Apply proxy before each request
+     * @param Resource $ch
+     */
+    protected function applyProxy($ch) {
+        $host = empty($this->proxy['host']) ? '' : $this->proxy['host'];
+        $port = empty($this->proxy['port']) ? 0 : $this->proxy['port'];
+        $user = empty($this->proxy['user']) ? 0 : $this->proxy['user'];
+        $passwd = empty($this->proxy['passwd']) ? 0 : $this->proxy['passwd'];
+        curl_setopt($ch, CURLOPT_PROXY, $host);
+        curl_setopt($ch, CURLOPT_PROXYPORT, $port);
+        curl_setopt($ch, CURLOPT_PROXYUSERNAME, $user);
+        curl_setopt($ch, CURLOPT_PROXYPASSWORD, $passwd);
     }
 
     /**
@@ -813,6 +828,7 @@ class YandexXmlClient
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml->asXML());
         curl_setopt($ch, CURLOPT_POST, true);
+        $this->applyProxy($ch);
         $data = curl_exec($ch);
 
         $this->response = new \SimpleXMLElement($data);
@@ -955,7 +971,7 @@ class YandexXmlClient
         if (empty($this->results)) {
             if (empty($this->error) && $this->response) {
                 foreach ($this->response->results->grouping->group as $group) {
-                    $res = new stdClass();
+                    $res = new \stdClass();
                     $res->url       = $group->doc->url;
                     $res->domain    = $group->doc->domain;
                     $res->title     = isset($group->doc->title) ? $group->doc->title : $group->doc->url;
