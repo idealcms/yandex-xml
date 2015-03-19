@@ -4,6 +4,7 @@
     "keywords":["yandex", "yandex.xml", "yandex xml", "sdk"],
     "type":"library",
     "license": "MIT",
+    "version": "1.0.0",
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
