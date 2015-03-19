@@ -1,10 +1,8 @@
 # YandexXml
 
-```
 Класс для работы с поисковым сервисом Яндекс.XML.
 
 Форк https://github.com/AntonShevchuk/yandex
-```
 
 ```
 Подготовлен к использованию через Composer (добавлен composer.json, заданы требования)
