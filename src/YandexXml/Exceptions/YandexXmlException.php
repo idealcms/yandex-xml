@@ -46,7 +46,7 @@ class YandexXmlException extends \Exception
      * @param Integer $code
      * @param String  $msg      If code exists in errors, this message will be overwriten
      */
-    static public function solveMessage($code, $msg){
+    static public function solveMessage($code, $msg = ''){
         return isset(self::$errors[$code]) ? self::$errors[$code] : $msg;
     }
 }
