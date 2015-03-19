@@ -28,7 +28,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "dev-bubnovKelnik-composerReady"
+            "dev-master": "1.0.1"
         }
     }
 }
