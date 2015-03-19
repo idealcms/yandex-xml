@@ -12,17 +12,17 @@ use AntonShevchuk\YandexXml\Exceptions\YandexXmlException;
 
 /** Demo values
  */
-$user = 'my-user';
-$key = 'my-key';
+$user = 'myuser';
+$key = 'mykey';
 $lr = 2; //Saint-Petersburg, Russia
 
 /**
  * Proxy demo values
  */
-$proxyHost = '127.0.0.1';
-$proxyPort = '80';
-$proxyUser = 'user';
-$proxyPass = 'pass';
+$proxyHost = '';
+$proxyPort = 80;
+$proxyUser = '';
+$proxyPass = '';
 
 /**
  * Start the party!
