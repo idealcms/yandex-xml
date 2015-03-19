@@ -1,5 +1,5 @@
 {
-    "name": "AntonShevchuk/yandex-xml-library",
+    "name": "bubnovKelnik/yandex-xml-library",
     "description": "Official Yandex PHP library ready for composer",
     "keywords":["yandex", "yandex.xml", "yandex xml", "sdk"],
     "type":"library",
