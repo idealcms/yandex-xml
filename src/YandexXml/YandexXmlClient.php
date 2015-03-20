@@ -572,7 +572,7 @@ class YandexXmlClient
      */
     public function sortby($sortby)
     {
-        if ($sortby == Yandex::SORT_RLV || $sortby == Yandex::SORT_TM) {
+        if ($sortby == self::SORT_RLV || $sortby == self::SORT_TM) {
             $this->sortby = $sortby;
         }
 
@@ -799,8 +799,8 @@ class YandexXmlClient
         $groupby->addAttribute('mode', $this->groupby_mode);
         $groupby->addAttribute('groups-on-page', $this->limit);
         $groupby->addAttribute('docs-in-group',  1);
-        $groupby->addAttribute('curcateg',  -1);
-
+        
+        $xml->addChild('sortby', $this->sortby);
         $xml->addChild('maxpassages', $this->options['maxpassages']);
         $xml->addChild('max-title-length', $this->options['max-title-length']);
         $xml->addChild('max-headline-length', $this->options['max-headline-length']);
