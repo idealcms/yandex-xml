@@ -1,0 +1,34 @@
+{
+    "name": "bubnovKelnik/yandex-xml-library",
+    "description": "Official Yandex PHP library ready for composer",
+    "keywords":["yandex", "yandex.xml", "yandex xml", "sdk"],
+    "type":"library",
+    "license": "MIT",
+    "version": "1.0.3",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "ext-curl": "*",
+        "ext-simplexml": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "AntonShevchuk\\YandexXml\\": "src/YandexXml"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anton Shevchuk",
+            "email": "AntonShevchuk@gmail.com"
+        },
+        {
+            "name": "Mihail Bubnov",
+            "email": "bubnov.mihail@gmail.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.3"
+        }
+    }
+}
