@@ -858,7 +858,7 @@ class YandexXmlClient
     {
         if (isset($this->response->error)) {
             $code = (int) $this->response->error->attributes()->code[0];
-            throw new YandexXmlException(YandexXmlException::solveMessage($code, $this->response->error));
+            throw new YandexXmlException(YandexXmlException::solveMessage($code, $this->response->error), $code);
         }
     }
 
