@@ -20,7 +20,7 @@ class YandexXmlClient
     /**
      * Base url to service
      */
-    const BASE_URL = 'http://xmlsearch.yandex.ru/xmlsearch';
+    private $baseUrl = 'http://xmlsearch.yandex.ru/xmlsearch';
 
     /**
      * Response
@@ -811,7 +811,7 @@ class YandexXmlClient
 
         $ch = curl_init();
 
-        $url = self::BASE_URL
+        $url = $this->getBaseUrl()
              .'?user='.$this->user
              .'&key='.$this->key;
 
@@ -1044,5 +1044,24 @@ class YandexXmlClient
         $text = strip_tags($text, '<strong>');
 
         return $text;
+    }
+    
+    /**
+     * 
+     * @return String
+     */
+    public function getBaseUrl() {
+        return $this->baseUrl;
+    }
+    
+    /**
+     * 
+     * @param String $baseUrl
+     * @return \AntonShevchuk\YandexXml\YandexXmlClient
+     */
+    public function setBaseUrl($baseUrl) {
+        $this->baseUrl = $baseUrl;
+        
+        return $this;
     }
 }
