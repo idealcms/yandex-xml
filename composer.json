@@ -4,7 +4,7 @@
     "keywords":["yandex", "yandex.xml", "yandex xml", "sdk"],
     "type":"library",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
@@ -28,7 +28,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.3"
+            "dev-master": "1.0.5"
         }
     }
 }
