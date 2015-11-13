@@ -20,7 +20,7 @@ class YandexXmlClient
     /**
      * Base url to service
      */
-    private $baseUrl = 'http://xmlsearch.yandex.ru/xmlsearch';
+    private $baseUrl = 'https://yandex.ru/search/xml';
 
     /**
      * Response
