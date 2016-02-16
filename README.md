@@ -17,33 +17,21 @@ composer require anton-shevchuk/yandex-xml-library
 <?php
 require_once 'vendor/autoload.php';
 
-use AntonShevchuk\YandexXml\YandexXmlClient;
+use AntonShevchuk\YandexXml\Client;
+use AntonShevchuk\YandexXml\Request;
+use AntonShevchuk\YandexXml\Response;
 use AntonShevchuk\YandexXml\Exceptions\YandexXmlException;
 
-/**
- * @link http://search.yaca.yandex.ru/geo.c2n
- */
-$lr = 2; // id региона в Яндекс
+$request = Client::request('your-user-in-yandex-xml', 'your-key-yandex-xml');
 
-$yandexXml = new YandexXmlClient('your-user-in-yandex-xml', 'your-key-yandex-xml');
-
-/**
- * $results является массивом из stdClass
- * Каждый элемент содержит поля:
- * url
- * domain
- * title
- * headline
- */
 try {
-    $results = $yandexXml
-        ->setQuery('What is github query') //запрос к поисковику
-        ->setLr($lr) //id региона в Яндекс
-        ->setPage('Начать со страницы. По умолчанию 0 (первая страница)')
-        ->setLimit(100) //Количество результатов на странице (макс 100)
-        ->setProxy('host или ip', 'port', 'user, если требуется авторизация', 'pass, если требуется авторизация') //Если требуется проксирование запроса
-        ->request()
-        ->getResults() //Возвращает массив из stdClass
+    $response = $request
+        ->query('What is github query') // запрос к поисковику
+        ->lr(2)                         // id региона в Яндекс {@link http://search.yaca.yandex.ru/geo.c2n}
+        ->page('Начать со страницы. По умолчанию 0 (первая страница)')
+        ->limit(100)                    // Количество результатов на странице (макс 100)
+        ->proxy('host или ip', 'port', 'user, если требуется авторизация', 'pass, если требуется авторизация') // Если требуется проксирование запроса
+        ->send()                        // Возвращает объект Response
     ;
 }
 catch (YandexXmlException $e) {
@@ -56,12 +44,24 @@ catch (Exception $e) {
 }
 
 /**
+ * Возвращает массив с результатами
+ *
+ * $results является массивом из stdClass
+ * Каждый элемент содержит поля:
+ *  - url
+ *  - domain
+ *  - title
+ *  - headline
+ */
+$results = $response->getResults();
+
+/**
  * Возвращает строку "Нашлось 12 млн. результатов"
  */
-$total = $yandexXml->getTotalHuman();
+$total = $response->getTotalHuman();
 
 /**
  * Возвращает integer с общим количеством страниц результатов
  */
-$pages = $yandexXml->getPages();
+$pages = $response->getPages();
 ```
