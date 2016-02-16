@@ -6,9 +6,8 @@ namespace AntonShevchuk\YandexXml\Exceptions;
  * Class YandexXmlException for work with YandexXml
  *
  * @author   Mihail Bubnov <bubnov.mihail@gmail.com>
+ *
  * @package  YandexXml
- * @version  1.0.0
- * @created  Mar 19 11:22:50 EEST 2013
  */
 class YandexXmlException extends \Exception
 {
@@ -44,10 +43,11 @@ class YandexXmlException extends \Exception
     /**
      *
      * @param integer $code
-     * @param string  $msg If code exists in errors, this message will be overwriten
+     * @param string $msg If code exists in errors, this message will be overwriten
      * @return mixed|string
      */
-    static public function solveMessage($code, $msg = ''){
+    static public function solveMessage($code, $msg = '')
+    {
         return isset(self::$errors[$code]) ? self::$errors[$code] : $msg;
     }
 }
