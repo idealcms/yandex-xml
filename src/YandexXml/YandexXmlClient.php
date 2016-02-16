@@ -26,21 +26,21 @@ class YandexXmlClient
      * Response
      *
      * @see http://help.yandex.ru/xml/?id=362990
-     * @var SimpleXML
+     * @var \SimpleXMLElement
      */
     public $response;
 
     /**
      * Wordstat array
      *
-     * @var Array
+     * @var array
      */
     public $wordstat = array();
 
     /**
      * Response in array
      *
-     * @var Array
+     * @var array
      */
     public $results = array();
 
@@ -161,7 +161,7 @@ class YandexXmlClient
     const SORT_RLV = 'rlv'; // relevation
     const SORT_TM  = 'tm';  // time modification
 
-    protected $sortby = 'rlv';
+    protected $sortBy = 'rlv';
 
     /**
      * Group By  '' || 'd'
@@ -171,7 +171,8 @@ class YandexXmlClient
      */
     const GROUP_DEFAULT = '';
     const GROUP_SITE    = 'd'; // group by site
-    protected $groupby = '';
+
+    protected $groupBy = '';
 
     /**
      * Group mode   'flat' || 'deep' || 'wide'
@@ -181,7 +182,8 @@ class YandexXmlClient
     const GROUP_MODE_FLAT = 'flat';
     const GROUP_MODE_DEEP = 'deep';
     const GROUP_MODE_WIDE = 'wide';
-    protected $groupby_mode = 'flat';
+
+    protected $groupByMode = 'flat';
 
     /**
      * Options of search
@@ -194,15 +196,19 @@ class YandexXmlClient
         'max-headline-length'   => 160 , //
         'max-passage-length'    => 160 , //
         'max-text-length'       => 640 , //
-
     );
 
     /**
      * Proxy params
      * Default - no proxy
-     * @var Array
+     * @var array
      */
-    protected $proxy = array();
+    protected $proxy = array(
+        'host' => '',
+        'port' => 0,
+        'user' => '',
+        'pass' => ''
+    );
 
     /**
      * __construct
@@ -210,7 +216,6 @@ class YandexXmlClient
      * @param  string             $user
      * @param  string             $key
      * @throws YandexXmlException
-     * @return YandexXml
      */
      public function __construct($user, $key)
      {
@@ -222,25 +227,23 @@ class YandexXmlClient
      }
 
     /**
-     * query
+     * Search query
      *
-     * @access  public
      * @param  string    $query
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function query($query)
     {
         $this->query = $query;
-
         return $this;
     }
 
     /**
-     * set query
+     * Set query
      *
      * @access  public
      * @param  string    $query
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setQuery($query)
     {
@@ -248,7 +251,7 @@ class YandexXmlClient
     }
 
     /**
-     * getQuery
+     * Get query
      *
      * @access  public
      * @return string
@@ -259,10 +262,10 @@ class YandexXmlClient
     }
 
     /**
-     * page
+     * Page
      *
      * @param  integer   $page
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function page($page)
     {
@@ -272,10 +275,10 @@ class YandexXmlClient
     }
 
     /**
-     * set page
+     * Set page
      *
      * @param  integer   $page
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setPage($page)
     {
@@ -283,7 +286,7 @@ class YandexXmlClient
     }
 
     /**
-     * getPage
+     * Get page
      *
      * @return integer
      */
@@ -293,10 +296,10 @@ class YandexXmlClient
     }
 
     /**
-     * limit
+     * Limit
      *
      * @param  integer   $limit
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function limit($limit)
     {
@@ -306,10 +309,10 @@ class YandexXmlClient
     }
 
     /**
-     * set limit
+     * Set limit
      *
      * @param  integer   $limit
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setLimit($limit)
     {
@@ -317,7 +320,7 @@ class YandexXmlClient
     }
 
     /**
-     * getLimit
+     * Get limit
      *
      * @return integer
      */
@@ -327,10 +330,10 @@ class YandexXmlClient
     }
 
     /**
-     * host
+     * Host
      *
      * @param  string    $host
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function host($host)
     {
@@ -340,10 +343,10 @@ class YandexXmlClient
     }
 
     /**
-     * host
+     * Set host
      *
      * @param  string    $host
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setHost($host)
     {
@@ -351,7 +354,7 @@ class YandexXmlClient
     }
 
     /**
-     * getHost
+     * Get host
      *
      * @return string
      */
@@ -361,10 +364,10 @@ class YandexXmlClient
     }
 
     /**
-     * site
+     * Site
      *
      * @param  string    $site
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function site($site)
     {
@@ -374,10 +377,10 @@ class YandexXmlClient
     }
 
     /**
-     * set site
+     * Set site
      *
      * @param  string    $site
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setSite($site)
     {
@@ -385,7 +388,7 @@ class YandexXmlClient
     }
 
     /**
-     * getSite
+     * Get site
      *
      * @return string
      */
@@ -395,10 +398,10 @@ class YandexXmlClient
     }
 
     /**
-     * domain
+     * Domain
      *
      * @param  string    $domain
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function domain($domain)
     {
@@ -408,10 +411,10 @@ class YandexXmlClient
     }
 
     /**
-     * set domain
+     * Set domain
      *
      * @param  string    $domain
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setDomain($domain)
     {
@@ -419,7 +422,7 @@ class YandexXmlClient
     }
 
     /**
-     * getDomain
+     * Get domain
      *
      * @return string
      */
@@ -429,23 +432,22 @@ class YandexXmlClient
     }
 
     /**
-     * cat
+     * Cat
      *
      * @param  integer   $cat
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function cat($cat)
     {
         $this->cat = $cat;
-
         return $this;
     }
 
     /**
-     * set cat
+     * Set cat
      *
      * @param  integer   $cat
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setCat($cat)
     {
@@ -453,7 +455,7 @@ class YandexXmlClient
     }
 
     /**
-     * getCat
+     * Get cat
      *
      * @return integer
      */
@@ -463,23 +465,22 @@ class YandexXmlClient
     }
 
     /**
-     * geo
+     * Geo
      *
      * @param  integer   $geo
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function geo($geo)
     {
         $this->geo = $geo;
-
         return $this;
     }
 
     /**
-     * set geo
+     * Set geo
      *
      * @param  integer   $geo
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setGeo($geo)
     {
@@ -487,7 +488,7 @@ class YandexXmlClient
     }
 
     /**
-     * getGeo
+     * Get geo
      *
      * @return integer
      */
@@ -497,23 +498,22 @@ class YandexXmlClient
     }
 
     /**
-     * theme
+     * Theme
      *
      * @param  integer   $theme
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function theme($theme)
     {
         $this->theme = $theme;
-
         return $this;
     }
 
     /**
-     * set theme
+     * Set theme
      *
      * @param  integer   $theme
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setTheme($theme)
     {
@@ -521,7 +521,7 @@ class YandexXmlClient
     }
 
     /**
-     * getTheme
+     * Get theme
      *
      * @return integer
      */
@@ -534,20 +534,19 @@ class YandexXmlClient
      * lr
      *
      * @param  integer   $lr
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function lr($lr)
     {
         $this->lr = $lr;
-
         return $this;
     }
 
     /**
-     * set lr
+     * Set lr
      *
      * @param  integer   $lr
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setLr($lr)
     {
@@ -555,7 +554,7 @@ class YandexXmlClient
     }
 
     /**
-     * getLr
+     * Get lr
      *
      * @return integer
      */
@@ -565,56 +564,56 @@ class YandexXmlClient
     }
 
     /**
-     * sortby
+     * Sort by ..
      *
-     * @param  string    $sortby
-     * @return YandexXml
+     * @param  string    $sortBy
+     * @return YandexXmlClient
      */
-    public function sortby($sortby)
+    public function sortBy($sortBy)
     {
-        if ($sortby == self::SORT_RLV || $sortby == self::SORT_TM) {
-            $this->sortby = $sortby;
+        if ($sortBy == self::SORT_RLV || $sortBy == self::SORT_TM) {
+            $this->sortBy = $sortBy;
         }
 
         return $this;
     }
 
     /**
-     * set sortby
+     * Set sort by
      *
-     * @param  string    $sortby
-     * @return YandexXml
+     * @param  string    $sortBy
+     * @return YandexXmlClient
      */
-    public function setSortby($sortby)
+    public function setSortBy($sortBy)
     {
-        return $this->sortby($sortby);
+        return $this->sortBy($sortBy);
     }
 
     /**
-     * getSortby
+     * Get sort by
      *
      * @return string
      */
-    public function getSortby()
+    public function getSortBy()
     {
-        return $this->sortby;
+        return $this->sortBy;
     }
 
     /**
-     * setup groupby
+     * Setup group by
      *
-     * @param  string    $groupby
+     * @param  string    $groupBy
      * @param  string    $mode
-     * @return YandexXml
+     * @return YandexXmlClient
      */
-    public function groupby($groupby, $mode = self::GROUP_MODE_FLAT)
+    public function groupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
     {
-        if ($groupby == self::GROUP_DEFAULT || $groupby == self::GROUP_SITE) {
-            $this->groupby = $groupby;
-            if ($groupby == self::GROUP_DEFAULT) {
-                $this->groupby_mode = self::GROUP_MODE_FLAT;
+        if ($groupBy == self::GROUP_DEFAULT || $groupBy == self::GROUP_SITE) {
+            $this->groupBy = $groupBy;
+            if ($groupBy == self::GROUP_DEFAULT) {
+                $this->groupByMode = self::GROUP_MODE_FLAT;
             } else {
-                $this->groupby_mode = $mode;
+                $this->groupByMode = $mode;
             }
         }
 
@@ -622,35 +621,35 @@ class YandexXmlClient
     }
 
     /**
-     * setup groupby
+     * Set group by
      *
-     * @param  string    $groupby
+     * @param  string    $groupBy
      * @param  string    $mode
-     * @return YandexXml
+     * @return YandexXmlClient
      */
-    public function setGroupby($groupby, $mode = self::GROUP_MODE_FLAT)
+    public function setGroupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
     {
-        return $this->groupby($groupby, $mode);
+        return $this->groupBy($groupBy, $mode);
     }
 
     /**
-     * get groupby
+     * Get group by
      *
      * @return string
      */
-    public function getGroupby()
+    public function getGroupBy()
     {
-        return $this->groupby;
+        return $this->groupBy;
     }
 
     /**
-     * getGroupbyMode
+     * Get group by mode
      *
      * @return string
      */
-    public function getGroupbyMode()
+    public function getGroupByMode()
     {
-        return $this->groupby_mode;
+        return $this->groupByMode;
     }
 
     /**
@@ -658,7 +657,7 @@ class YandexXmlClient
      *
      * @param  string    $option
      * @param  mixed     $value
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function set($option, $value = null)
     {
@@ -670,7 +669,7 @@ class YandexXmlClient
      *
      * @param  string    $option
      * @param  mixed     $value
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function setOption($option, $value = null)
     {
@@ -680,44 +679,42 @@ class YandexXmlClient
     }
 
     /**
-     * set proxe fo request
-     * @param  type      $host
-     * @param  type      $port
-     * @param  type      $user
-     * @param  type      $passwd
-     * @return YandexXml
+     * Set proxy fo request
+     *
+     * @param  string      $host
+     * @param  integer     $port
+     * @param  string      $user
+     * @param  string      $pass
+     * @return YandexXmlClient
      */
-    public function setProxy($host = '', $port = 80, $user = null, $passwd = null)
+    public function setProxy($host = '', $port = 80, $user = null, $pass = null)
     {
         $this->proxy = array(
             'host' => $host,
             'port' => $port,
             'user' => $user,
-            'passwd' => $passwd,
+            'pass' => $pass,
         );
-
         return $this;
     }
-    
+
     /**
      * Apply proxy before each request
-     * @param Resource $ch
+     * @param resource $ch
      */
-    protected function applyProxy($ch) {
-        $host = empty($this->proxy['host']) ? '' : $this->proxy['host'];
-        $port = empty($this->proxy['port']) ? 0 : $this->proxy['port'];
-        $user = empty($this->proxy['user']) ? 0 : $this->proxy['user'];
-        $passwd = empty($this->proxy['passwd']) ? 0 : $this->proxy['passwd'];
-        curl_setopt($ch, CURLOPT_PROXY, $host);
-        curl_setopt($ch, CURLOPT_PROXYPORT, $port);
-        curl_setopt($ch, CURLOPT_PROXYUSERNAME, $user);
-        curl_setopt($ch, CURLOPT_PROXYPASSWORD, $passwd);
+    protected function applyProxy($ch)
+    {
+        curl_setopt_array($ch, array(
+            CURLOPT_PROXY => $this->proxy['host'],
+            CURLOPT_PROXYPORT => $this->proxy['port'],
+            CURLOPT_PROXYUSERPWD => $this->proxy['user'] .':'. $this->proxy['pass']
+        ));
     }
 
     /**
      * send request
      * @throws YandexXmlException
-     * @return YandexXml
+     * @return YandexXmlClient
      */
     public function request()
     {
@@ -795,12 +792,12 @@ class YandexXmlClient
         $xml->addChild('page',  $this->page);
         $groupings = $xml->addChild('groupings');
         $groupby   = $groupings->addChild('groupby');
-        $groupby->addAttribute('attr', $this->groupby);
-        $groupby->addAttribute('mode', $this->groupby_mode);
+        $groupby->addAttribute('attr', $this->groupBy);
+        $groupby->addAttribute('mode', $this->groupByMode);
         $groupby->addAttribute('groups-on-page', $this->limit);
         $groupby->addAttribute('docs-in-group',  1);
         
-        $xml->addChild('sortby', $this->sortby);
+        $xml->addChild('sortby', $this->sortBy);
         $xml->addChild('maxpassages', $this->options['maxpassages']);
         $xml->addChild('max-title-length', $this->options['max-title-length']);
         $xml->addChild('max-headline-length', $this->options['max-headline-length']);
@@ -828,14 +825,18 @@ class YandexXmlClient
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml->asXML());
         curl_setopt($ch, CURLOPT_POST, true);
-        $this->applyProxy($ch);
+
+        if (!empty($this->proxy['host'])) {
+            $this->applyProxy($ch);
+        }
+
         $data = curl_exec($ch);
 
         $this->response = new \SimpleXMLElement($data);
         $this->response = $this->response->response;
 
-        $this->_checkErrors();
-        $this->_bindData();
+        $this->checkErrors();
+        $this->bindData();
 
         return $this;
     }
@@ -854,7 +855,7 @@ class YandexXmlClient
      * check response errors
      * @throws YandexXmlException
      */
-    protected function _checkErrors()
+    protected function checkErrors()
     {
         if (isset($this->response->error)) {
             $code = (int) $this->response->error->attributes()->code[0];
@@ -867,7 +868,7 @@ class YandexXmlClient
      *
      * @return void
      */
-     protected function _bindData()
+     protected function bindData()
      {
          $wordstat = preg_split('/,/', $this->response->wordstat);
          $this->wordstat = array();
@@ -990,7 +991,7 @@ class YandexXmlClient
     }
     
     /**
-     * return pagebar array
+     * Return pagebar array
      *
      * @return array
      */
@@ -1000,14 +1001,16 @@ class YandexXmlClient
     }
 
     /**
-     * return pagebar array
+     * Return pagebar array
      *
      * @return array
      */
     public function getPageBar()
     {
         // FIXME: not good
-        $pages = $this->getPges();
+        $pages = $this->getPages();
+
+        $pagebar = array();
 
         if ($pages < 10) {
             $pagebar = array_fill(0, $pages, array('type' => 'link', 'text' => '%d'));
@@ -1029,10 +1032,10 @@ class YandexXmlClient
     }
 
     /**
-     * highlight text
+     * Highlight text
      *
-     * @param  SimpleXML $xml
-     * @return String
+     * @param  \simpleXMLElement $xml
+     * @return string
      */
     public static function highlight($xml)
     {
@@ -1045,23 +1048,23 @@ class YandexXmlClient
 
         return $text;
     }
-    
+
     /**
-     * 
+     * Set Base URL
+     * @param String $baseUrl
+     * @return YandexXmlClient
+     */
+    public function setBaseUrl($baseUrl) {
+        $this->baseUrl = $baseUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get Base URL
      * @return String
      */
     public function getBaseUrl() {
         return $this->baseUrl;
-    }
-    
-    /**
-     * 
-     * @param String $baseUrl
-     * @return \AntonShevchuk\YandexXml\YandexXmlClient
-     */
-    public function setBaseUrl($baseUrl) {
-        $this->baseUrl = $baseUrl;
-        
-        return $this;
     }
 }

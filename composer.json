@@ -1,10 +1,10 @@
 {
-    "name": "bubnovKelnik/yandex-xml-library",
-    "description": "Official Yandex PHP library ready for composer",
+    "name": "anton-shevchuk/yandex-xml-library",
+    "description": "Un-Official Yandex-XML PHP library ready for composer",
     "keywords":["yandex", "yandex.xml", "yandex xml", "sdk"],
     "type":"library",
     "license": "MIT",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
@@ -28,7 +28,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.5"
+            "dev-master": "1.1.0"
         }
     }
 }

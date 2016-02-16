@@ -2,20 +2,10 @@
 
 Пакет для работы с поисковым сервисом Яндекс.XML.
 
-Форк https://github.com/AntonShevchuk/yandex
-
-* Подготовлен к использованию через Composer (добавлен composer.json, заданы требования)
-* Определен автолоадер (согласно psr-4)
-* Класс переименован в YandexXmlClient и перемещен в namespace AntonShevchuk\YandexXml
-* Добавлен AntonShevchuk\YandexXml\Exceptions\YandexXmlException (выбрасывается в методе _checkErrors)
-* Добавлены методы для проксирования запроса (если сервер с приложением не расположен на ip, заданном в настройках yandex.xml)
-* Добавлены Геттеры
-
 1) Установка
 ----------------------------------
 
-    git clone git@github.com:bubnovKelnik/sitebeat.git
-    composer install --no-dev
+    composer require anton-shevchuk/yandex-xml-library
 
 2) Использование
 -------------------------------------
@@ -29,7 +19,7 @@ use AntonShevchuk\YandexXml\Exceptions\YandexXmlException;
 /**
  * @link http://search.yaca.yandex.ru/geo.c2n
  */
-$lr = 2; //id региона в Яндекс
+$lr = 2; // id региона в Яндекс
 
 $yandexXml = new YandexXmlClient('your-user-in-yandex-xml', 'your-key-yandex-xml');
 

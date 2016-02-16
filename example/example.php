@@ -1,15 +1,20 @@
 <?php
-/* 
+/**
  * Example of yandexXml usage
- * 
  */
+
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors', 1);
 
 // Use your autoloader of choice. In this case composers.
 require __DIR__ . '/../vendor/autoload.php';
 
+// Or without autoloader
+//require __DIR__ . '/../src/YandexXml/YandexXmlClient.php';
+//require __DIR__ . '/../src/YandexXml/Exceptions/YandexXmlException.php';
+
 use AntonShevchuk\YandexXml\YandexXmlClient;
 use AntonShevchuk\YandexXml\Exceptions\YandexXmlException;
-
 /** Demo values
  */
 $user = 'myuser';
