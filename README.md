@@ -2,13 +2,17 @@
 
 Пакет для работы с поисковым сервисом Яндекс.XML.
 
-1) Установка
-----------------------------------
+## Установка
 
-    composer require anton-shevchuk/yandex-xml-library
+Данную бибилотеку можно установить с помощью менджера пакетов composer:
 
-2) Использование
--------------------------------------
+```
+composer require anton-shevchuk/yandex-xml-library
+```
+
+## Использование
+
+
 ```php
 <?php
 require_once 'vendor/autoload.php';
