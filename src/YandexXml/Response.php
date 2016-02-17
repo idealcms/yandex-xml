@@ -231,6 +231,6 @@ class Response
      */
     public function getPages()
     {
-        return $this->pages();
+        return $this->pages;
     }
 }

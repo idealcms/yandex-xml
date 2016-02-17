@@ -27,7 +27,7 @@ class Client
     public static function request($user, $key)
     {
         if (empty($user) or empty($key)) {
-            throw new YandexXmlException(YandexXmlException::solveMessage(YandexXmlException::EMPTY_USER_OR_KEY));
+            throw new YandexXmlException(YandexXmlException::EMPTY_USER_OR_KEY);
         }
 
         return new Request($user, $key);
@@ -41,12 +41,15 @@ class Client
      */
     public static function highlight($xml)
     {
-        // FIXME: very strangely method
-        $text = $xml->asXML();
-
-        $text = str_replace('<hlword>', '<strong>', $text);
-        $text = str_replace('</hlword>', '</strong>', $text);
-        $text = strip_tags($text, '<strong>');
+        if (is_string($xml)) {
+            $text = $xml;
+        } else {
+            // FIXME: very strangely method
+            $text = $xml->asXML();
+        }
+        $text = str_replace('<hlword>', '<mark>', $text);
+        $text = str_replace('</hlword>', '</mark>', $text);
+        $text = strip_tags($text, '<mark>');
 
         return $text;
     }
@@ -55,29 +58,47 @@ class Client
     /**
      * Return page bar array
      *
-     * @param  integer $total
-     * @param  integer $current
+     * @param  integer $total   Pages
+     * @param  integer $current Current page started from 0
      * @return array
      */
     public static function pageBar($total, $current)
     {
+        $total = $total - 1;
+
         $pageBar = array();
 
-        if ($total < 10) {
-            $pageBar = array_fill(0, $total, array('type' => 'link', 'text' => '%d'));
-            $pageBar[$current] = array('type' => 'current', 'text' => '<b>%d</b>');
-        } elseif ($total >= 10 && $current < 9) {
-            $pageBar = array_fill(0, 10, array('type' => 'link', 'text' => '%d'));
-            $pageBar[$current] = array('type' => 'current', 'text' => '<b>%d</b>');
-        } elseif ($total >= 10 && $current >= 9) {
-            $pageBar = array_fill(0, 2, array('type' => 'link', 'text' => '%d'));
-            $pageBar[] = array('type' => 'text', 'text' => '..');
-            $pageBar += array_fill($current - 2, 2, array('type' => 'link', 'text' => '%d'));
-            if ($total > ($current + 2)) {
-                $pageBar += array_fill($current, 2, array('type' => 'link', 'text' => '%d'));
-            }
-            $pageBar[$current] = array('type' => 'current', 'text' => '<b>%d</b>');
+        $pageBar['prev'] = ($current > 0) ? $current - 1 : false;
+
+        if ($total <= 10) {
+            $start = 0;
+            $last = $total;
+        } else {
+            $start = ($current - 3 > 0) ? ($current - 3) : 0;
+            $last = ($current + 3 < $total) ? ($current + 3) : $total;
         }
+
+        if ($total > 10 && $start > 0) {
+            $pageBar[0] = 1;
+        }
+
+        $pageBar['prev-dots'] = $total >= 10 && $current >= 5;
+
+        for ($i = $start; $i <= $last; $i++) {
+            if ($i == $current) {
+                $pageBar['current'] = $i+1;
+            } else {
+                $pageBar[$i] = $i+1;
+            }
+        }
+
+        $pageBar['next-dots'] = $total >= 10 && $current <= $total - 5;
+
+        if ($total >= 10 && $last < $total) {
+            $pageBar[$total] = $total + 1;
+        }
+
+        $pageBar['next'] = ($current < $total) ? $current + 1 : false;
 
         return $pageBar;
     }

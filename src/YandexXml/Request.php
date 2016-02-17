@@ -102,6 +102,19 @@ class Request
     protected $lr;
 
     /**
+     * Localization
+     *  - ru - russian
+     *  - uk - ukrainian
+     *  - be - belarusian
+     *  - kk - kazakh
+     *  - tr - turkish
+     *  - en - english
+     *
+     * @var string
+     */
+    protected $l10n;
+
+    /**
      * Number of page
      *
      * @var integer
@@ -556,12 +569,15 @@ class Request
      * lr
      *
      * @param  integer $lr
-     * @return Request
+     * @return integer|Request
      */
-    public function lr($lr)
+    public function lr($lr = null)
     {
-        $this->lr = $lr;
-        return $this;
+        if (is_null($lr)) {
+            return $this->getLr();
+        } else {
+            return $this->setLr($lr);
+        }
     }
 
     /**
@@ -572,7 +588,8 @@ class Request
      */
     public function setLr($lr)
     {
-        return $this->lr($lr);
+        $this->lr = $lr;
+        return $this;
     }
 
     /**
@@ -583,6 +600,43 @@ class Request
     public function getLr()
     {
         return $this->lr;
+    }
+
+    /**
+     * Set/Get Localization
+     *
+     * @param  string $l10n
+     * @return Request
+     */
+    public function l10n($l10n = null)
+    {
+        if (is_null($l10n)) {
+            return $this->getL10n();
+        } else {
+            return $this->setL10n($l10n);
+        }
+    }
+
+    /**
+     * Set localization
+     *
+     * @param  string $l10n
+     * @return Request
+     */
+    public function setL10n($l10n)
+    {
+        $this->l10n = $l10n;
+        return $this;
+    }
+
+    /**
+     * Get localization
+     *
+     * @return integer
+     */
+    public function getL10n()
+    {
+        return $this->l10n;
     }
 
     /**
@@ -791,7 +845,7 @@ class Request
         if (empty($this->query)
             && empty($this->host)
         ) {
-            throw new YandexXmlException(YandexXmlException::solveMessage(YandexXmlException::EMPTY_QUERY));
+            throw new YandexXmlException(YandexXmlException::EMPTY_QUERY);
         }
 
         $xml = new \SimpleXMLElement("<?xml version='1.0' encoding='utf-8'?><request></request>");
@@ -907,8 +961,10 @@ class Request
 
         // check response error
         if (isset($simpleXML->error)) {
-            $code = (int)$simpleXML->error->attributes()->code[0];
-            throw new YandexXmlException(YandexXmlException::solveMessage($code, $simpleXML->error), $code);
+            $code = (int) $simpleXML->error->attributes()->code[0];
+            $message = (string) $simpleXML->error;
+
+            throw new YandexXmlException($message, $code);
         }
 
         $response = new Response();
@@ -954,24 +1010,5 @@ class Request
         $response->setPages($total / $this->getLimit());
 
         return $response;
-    }
-
-
-    /**
-     * bindData
-     *
-     * @return void
-     */
-    protected function bindData()
-    {
-        $wordstat = preg_split('/,/', $this->response->wordstat);
-        $this->wordstat = array();
-        if (empty((array)$this->response->wordstat)) {
-            return;
-        }
-        foreach ($wordstat as $word) {
-            list($word, $count) = preg_split('/:/', $word);
-            $this->wordstat[$word] = intval(trim($count));
-        }
     }
 }
