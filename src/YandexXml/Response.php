@@ -19,28 +19,21 @@ class Response
      *
      * @var array
      */
-    public $results = array();
-
-    /**
-     * WordStat array
-     *
-     * @var array
-     */
-    public $wordstat = array();
+    protected $results = array();
 
     /**
      * Total results
      *
      * @var integer
      */
-    public $total = null;
+    protected $total = null;
 
     /**
      * Total results in human form
      *
      * @var string
      */
-    public $totalHuman = null;
+    protected $totalHuman = null;
 
     /**
      * Number of total pages
@@ -58,7 +51,7 @@ class Response
     public function results($results = null)
     {
         if (is_null($results)) {
-            return $this->getResults();
+            return $this->results;
         } else {
             return $this->setResults($results);
         }
@@ -70,57 +63,10 @@ class Response
      * @param  array $results
      * @return Response
      */
-    public function setResults($results)
+    protected function setResults($results)
     {
         $this->results = $results;
         return $this;
-    }
-
-    /**
-     * Get associated array of groups
-     *
-     * @return array
-     */
-    public function getResults()
-    {
-        return $this->results;
-    }
-
-    /**
-     * Set/Get word stat
-     *
-     * @param  array $stats
-     * @return Response|array
-     */
-    public function wordStat($stats = null)
-    {
-        if (is_null($stats)) {
-            return $this->getWordStat();
-        } else {
-            return $this->setWordStat($stats);
-        }
-    }
-
-    /**
-     * Set word stat
-     *
-     * @param  array $stats
-     * @return Response
-     */
-    public function setWordStat($stats)
-    {
-        $this->wordstat = $stats;
-        return $this;
-    }
-
-    /**
-     * Get word stat
-     *
-     * @return array
-     */
-    public function getWordStat()
-    {
-        return $this->wordstat;
     }
 
     /**
@@ -132,7 +78,7 @@ class Response
     public function total($total = null)
     {
         if (is_null($total)) {
-            return $this->getTotal();
+            return $this->total;
         } else {
             return $this->setTotal($total);
         }
@@ -144,21 +90,12 @@ class Response
      * @param  integer $total
      * @return Response
      */
-    public function setTotal($total)
+    protected function setTotal($total)
     {
-        $this->total = $total;
+        $this->total = (int) $total;
         return $this;
     }
 
-    /**
-     * Get total results
-     *
-     * @return integer
-     */
-    public function getTotal()
-    {
-        return $this->total;
-    }
 
     /**
      * Set/Get total results in human form
@@ -169,7 +106,7 @@ class Response
     public function totalHuman($total = null)
     {
         if (is_null($total)) {
-            return $this->getTotalHuman();
+            return $this->totalHuman;
         } else {
             return $this->setTotalHuman($total);
         }
@@ -181,19 +118,9 @@ class Response
      * @param  string $total
      * @return Response
      */
-    public function setTotalHuman($total)
+    protected function setTotalHuman($total)
     {
         $this->totalHuman = $total;
-        return $this->totalHuman;
-    }
-
-    /**
-     * Get total results in human form
-     *
-     * @return string
-     */
-    public function getTotalHuman()
-    {
         return $this->totalHuman;
     }
 
@@ -206,7 +133,7 @@ class Response
     public function pages($pages = null)
     {
         if (is_null($pages)) {
-            return $this->getPages();
+            return $this->pages;
         } else {
             return $this->setPages($pages);
         }
@@ -218,19 +145,9 @@ class Response
      * @param  integer $pages
      * @return Response
      */
-    public function setPages($pages)
+    protected function setPages($pages)
     {
         $this->pages = $pages;
         return $this;
-    }
-
-    /**
-     * Get total pages
-     *
-     * @return integer
-     */
-    public function getPages()
-    {
-        return $this->pages;
     }
 }

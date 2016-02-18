@@ -38,14 +38,14 @@ $proxyPass = '';
 try {
     $request = Client::request($user, $key);
     $response = $request
-        ->setQuery('PHP библиотека Яндекс.xml')
-        ->setLr($lr)
-        ->setLimit(100)
-        ->setProxy($proxyHost, $proxyPort, $proxyUser, $proxyPass)
+        ->query('PHP библиотека Яндекс.xml')
+        ->lr($lr)
+        ->limit(100)
+        ->proxy($proxyHost, $proxyPort, $proxyUser, $proxyPass)
         ->send()
     ;
-    $total = $response->getTotalHuman();
-    $pages = $response->getPages();
+    $total = $response->totalHuman();
+    $pages = $response->pages();
     
     /**
      * Output
@@ -53,7 +53,7 @@ try {
     echo "\nTotal resalts: " . $total . "\n";
     echo "\nPages: " . $pages . "\n";
     echo "\nResults: \n";
-    var_dump($response->getResults());
+    var_dump($response->results());
 }
 catch (YandexXmlException $e) {
     echo "\nYandexXmlException occurred:\n";

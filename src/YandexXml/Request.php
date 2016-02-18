@@ -19,7 +19,7 @@ class Request
     /**
      * Base url to service
      */
-    private $baseUrl = 'https://yandex.ru/search/xml';
+    protected $baseUrl = 'https://yandex.ru/search/xml';
 
     /**
      * User
@@ -112,7 +112,27 @@ class Request
      *
      * @var string
      */
+    const L10N_RUSSIAN = 'ru';
+    const L10N_UKRAINIAN = 'uk';
+    const L10N_BELARUSIAN = 'be';
+    const L10N_KAZAKH = 'kk';
+    const L10N_TURKISH = 'tr';
+    const L10N_ENGLISH = 'en';
+
     protected $l10n;
+
+    /**
+     * Content filter
+     *  - strict
+     *  - moderate
+     *  - none
+     * @var string
+     */
+    const FILTER_STRICT = 'strict';
+    const FILTER_MODERATE = 'moderate';
+    const FILTER_NONE = 'none';
+
+    protected $filter;
 
     /**
      * Number of page
@@ -206,7 +226,7 @@ class Request
     public function baseUrl($baseUrl = null)
     {
         if (is_null($baseUrl)) {
-            return $this->getBaseUrl();
+            return $this->baseUrl;
         } else {
             return $this->setBaseUrl($baseUrl);
         }
@@ -217,19 +237,10 @@ class Request
      * @param String $baseUrl
      * @return Request
      */
-    public function setBaseUrl($baseUrl)
+    protected function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
         return $this;
-    }
-
-    /**
-     * Get Base URL
-     * @return String
-     */
-    public function getBaseUrl()
-    {
-        return $this->baseUrl;
     }
 
     /**
@@ -241,7 +252,7 @@ class Request
     public function query($query = null)
     {
         if (is_null($query)) {
-            return $this->getQuery();
+            return $this->query;
         } else {
             return $this->setQuery($query);
         }
@@ -253,20 +264,10 @@ class Request
      * @param  string $query
      * @return Request
      */
-    public function setQuery($query)
+    protected function setQuery($query)
     {
         $this->query = $query;
         return $this;
-    }
-
-    /**
-     * Get query
-     *
-     * @return string
-     */
-    public function getQuery()
-    {
-        return $this->query;
     }
 
     /**
@@ -278,7 +279,7 @@ class Request
     public function page($page = null)
     {
         if (is_null($page)) {
-            return $this->getPage();
+            return $this->page;
         } else {
             return $this->setPage($page);
         }
@@ -290,20 +291,10 @@ class Request
      * @param  integer $page
      * @return Request
      */
-    public function setPage($page)
+    protected function setPage($page)
     {
         $this->page = (int) $page;
         return $this;
-    }
-
-    /**
-     * Get page
-     *
-     * @return integer
-     */
-    public function getPage()
-    {
-        return $this->page;
     }
 
     /**
@@ -315,7 +306,7 @@ class Request
     public function limit($limit = null)
     {
         if (is_null($limit)) {
-            return $this->getLimit();
+            return $this->limit;
         } else {
             return $this->setLimit($limit);
         }
@@ -327,20 +318,10 @@ class Request
      * @param  integer $limit
      * @return Request
      */
-    public function setLimit($limit)
+    protected function setLimit($limit)
     {
         $this->limit = (int) $limit;
         return $this;
-    }
-
-    /**
-     * Get limit
-     *
-     * @return integer
-     */
-    public function getLimit()
-    {
-        return $this->limit;
     }
 
     /**
@@ -352,7 +333,7 @@ class Request
     public function host($host = null)
     {
         if (is_null($host)) {
-            return $this->getHost();
+            return $this->host;
         } else {
             return $this->setHost($host);
         }
@@ -364,20 +345,10 @@ class Request
      * @param  string $host
      * @return Request
      */
-    public function setHost($host)
+    protected function setHost($host)
     {
         $this->host = $host;
         return $this;
-    }
-
-    /**
-     * Get host
-     *
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
     }
 
     /**
@@ -389,7 +360,7 @@ class Request
     public function site($site = null)
     {
         if (is_null($site)) {
-            return $this->getSite();
+            return $this->site;
         } else {
             return $this->setSite($site);
         }
@@ -401,20 +372,10 @@ class Request
      * @param  string $site
      * @return Request
      */
-    public function setSite($site)
+    protected function setSite($site)
     {
         $this->site = $site;
         return $this;
-    }
-
-    /**
-     * Get site
-     *
-     * @return string
-     */
-    public function getSite()
-    {
-        return $this->site;
     }
 
     /**
@@ -426,7 +387,7 @@ class Request
     public function domain($domain = null)
     {
         if (is_null($domain)) {
-            return $this->getDomain();
+            return $this->domain;
         } else {
             return $this->setDomain($domain);
         }
@@ -438,20 +399,10 @@ class Request
      * @param  string $domain
      * @return Request
      */
-    public function setDomain($domain)
+    protected function setDomain($domain)
     {
         $this->domain = $domain;
         return $this;
-    }
-
-    /**
-     * Get domain
-     *
-     * @return string
-     */
-    public function getDomain()
-    {
-        return $this->domain;
     }
 
     /**
@@ -463,7 +414,7 @@ class Request
     public function cat($cat = null)
     {
         if (is_null($cat)) {
-            return $this->getCat();
+            return $this->cat;
         } else {
             return $this->setCat($cat);
         }
@@ -475,20 +426,10 @@ class Request
      * @param  integer $cat
      * @return Request
      */
-    public function setCat($cat)
+    protected function setCat($cat)
     {
         $this->cat = (int) $cat;
         return $this;
-    }
-
-    /**
-     * Get cat
-     *
-     * @return integer
-     */
-    public function getCat()
-    {
-        return $this->cat;
     }
 
     /**
@@ -500,7 +441,7 @@ class Request
     public function geo($geo = null)
     {
         if (is_null($geo)) {
-            return $this->getGeo();
+            return $this->geo;
         } else {
             return $this->setGeo($geo);
         }
@@ -512,20 +453,10 @@ class Request
      * @param  integer $geo
      * @return Request
      */
-    public function setGeo($geo)
+    protected function setGeo($geo)
     {
         $this->geo = (int) $geo;
         return $this;
-    }
-
-    /**
-     * Get geo
-     *
-     * @return integer
-     */
-    public function getGeo()
-    {
-        return $this->geo;
     }
 
     /**
@@ -537,7 +468,7 @@ class Request
     public function theme($theme = null)
     {
         if (is_null($theme)) {
-            return $this->getTheme();
+            return $this->theme;
         } else {
             return $this->setTheme($theme);
         }
@@ -549,20 +480,10 @@ class Request
      * @param  integer $theme
      * @return Request
      */
-    public function setTheme($theme)
+    protected function setTheme($theme)
     {
         $this->theme = $theme;
         return $this;
-    }
-
-    /**
-     * Get theme
-     *
-     * @return integer
-     */
-    public function getTheme()
-    {
-        return $this->theme;
     }
 
     /**
@@ -574,7 +495,7 @@ class Request
     public function lr($lr = null)
     {
         if (is_null($lr)) {
-            return $this->getLr();
+            return $this->lr;
         } else {
             return $this->setLr($lr);
         }
@@ -586,20 +507,10 @@ class Request
      * @param  integer $lr
      * @return Request
      */
-    public function setLr($lr)
+    protected function setLr($lr)
     {
         $this->lr = $lr;
         return $this;
-    }
-
-    /**
-     * Get lr
-     *
-     * @return integer
-     */
-    public function getLr()
-    {
-        return $this->lr;
     }
 
     /**
@@ -611,7 +522,7 @@ class Request
     public function l10n($l10n = null)
     {
         if (is_null($l10n)) {
-            return $this->getL10n();
+            return $this->l10n;
         } else {
             return $this->setL10n($l10n);
         }
@@ -623,20 +534,37 @@ class Request
      * @param  string $l10n
      * @return Request
      */
-    public function setL10n($l10n)
+    protected function setL10n($l10n)
     {
         $this->l10n = $l10n;
         return $this;
     }
 
     /**
-     * Get localization
+     * Set/Get Filter
      *
-     * @return integer
+     * @param  string $filter
+     * @return Request
      */
-    public function getL10n()
+    public function filter($filter = null)
     {
-        return $this->l10n;
+        if (is_null($filter)) {
+            return $this->filter;
+        } else {
+            return $this->setFilter($filter);
+        }
+    }
+
+    /**
+     * Set Filter
+     *
+     * @param  string $filter
+     * @return Request
+     */
+    protected function setFilter($filter)
+    {
+        $this->filter = $filter;
+        return $this;
     }
 
     /**
@@ -645,12 +573,13 @@ class Request
      * @param  string $sortBy
      * @return Request
      */
-    public function sortBy($sortBy)
+    public function sortBy($sortBy = null)
     {
-        if ($sortBy == self::SORT_RLV || $sortBy == self::SORT_TM) {
-            $this->sortBy = $sortBy;
+        if (is_null($sortBy)) {
+            return $this->sortBy;
+        } else {
+            return $this->setSortBy($sortBy);
         }
-        return $this;
     }
 
     /**
@@ -659,20 +588,16 @@ class Request
      * @param  string $sortBy
      * @return Request
      */
-    public function setSortBy($sortBy)
+    protected function setSortBy($sortBy)
     {
-        return $this->sortBy($sortBy);
+        if ($sortBy == self::SORT_RLV || $sortBy == self::SORT_TM) {
+            $this->sortBy = $sortBy;
+            return $this;
+        } else {
+            throw new \InvalidArgumentException();
+        }
     }
 
-    /**
-     * Get sort by
-     *
-     * @return string
-     */
-    public function getSortBy()
-    {
-        return $this->sortBy;
-    }
 
     /**
      * Setup group by
@@ -681,18 +606,13 @@ class Request
      * @param  string $mode
      * @return Request
      */
-    public function groupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
+    public function groupBy($groupBy = null, $mode = self::GROUP_MODE_FLAT)
     {
-        if ($groupBy == self::GROUP_DEFAULT || $groupBy == self::GROUP_SITE) {
-            $this->groupBy = $groupBy;
-            if ($groupBy == self::GROUP_DEFAULT) {
-                $this->groupByMode = self::GROUP_MODE_FLAT;
-            } else {
-                $this->groupByMode = $mode;
-            }
+        if (is_null($groupBy)) {
+            return $this->groupBy;
+        } else {
+            return $this->setGroupBy($groupBy);
         }
-
-        return $this;
     }
 
     /**
@@ -702,29 +622,19 @@ class Request
      * @param  string $mode
      * @return Request
      */
-    public function setGroupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
+    protected function setGroupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
     {
-        return $this->groupBy($groupBy, $mode);
-    }
-
-    /**
-     * Get group by
-     *
-     * @return string
-     */
-    public function getGroupBy()
-    {
-        return $this->groupBy;
-    }
-
-    /**
-     * Get group by mode
-     *
-     * @return string
-     */
-    public function getGroupByMode()
-    {
-        return $this->groupByMode;
+        if ($groupBy == self::GROUP_DEFAULT || $groupBy == self::GROUP_SITE) {
+            $this->groupBy = $groupBy;
+            if ($groupBy == self::GROUP_DEFAULT) {
+                $this->groupByMode = self::GROUP_MODE_FLAT;
+            } else {
+                $this->groupByMode = $mode;
+            }
+            return $this;
+        } else {
+            throw new \InvalidArgumentException();
+        }
     }
 
     /**
@@ -750,7 +660,7 @@ class Request
      * @param  mixed $value
      * @return Request
      */
-    public function setOption($option, $value = null)
+    protected function setOption($option, $value = null)
     {
         $this->options[$option] = $value;
         return $this;
@@ -759,9 +669,10 @@ class Request
     /**
      * Get option
      *
+     * @param string $option
      * @return mixed
      */
-    public function getOption($option)
+    protected function getOption($option)
     {
         if (isset($this->options[$option])) {
             return $this->options[$option];
@@ -797,7 +708,7 @@ class Request
      * @param  string $pass
      * @return Request
      */
-    public function setProxy($host = '', $port = 80, $user = null, $pass = null)
+    protected function setProxy($host = '', $port = 80, $user = null, $pass = null)
     {
         $this->proxy = array(
             'host' => $host,
@@ -813,7 +724,7 @@ class Request
      *
      * @return Request
      */
-    public function getProxy()
+    protected function getProxy()
     {
         return $this->proxy;
     }
@@ -851,7 +762,7 @@ class Request
         $xml = new \SimpleXMLElement("<?xml version='1.0' encoding='utf-8'?><request></request>");
 
         // add query to request
-        $query = $this->getQuery();
+        $query = $this->query();
 
         // if isset "host"
         if ($this->host) {
@@ -930,16 +841,23 @@ class Request
 
         $this->request = $xml;
 
-        $ch = curl_init();
 
-        $url = $this->getBaseUrl()
-            . '?user=' . $this->user
-            . '&key=' . $this->key;
+        // build GET data
+        $getData = array(
+                'user' => $this->user,
+                'key' => $this->key,
+            );
 
         if ($this->lr) {
-            $url .= '&lr=' . $this->lr;
+            $getData['lr'] = $this->lr;
+        }
+        if ($this->l10n) {
+            $getData['l10n'] = $this->l10n;
         }
 
+        $url = $this->baseUrl .'?'. http_build_query($getData);
+
+        $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/xml"));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Accept: application/xml"));
@@ -956,8 +874,15 @@ class Request
 
         $data = curl_exec($ch);
 
+//        $data = file_get_contents(dirname(dirname(__DIR__)) . '/example/response.xml');
+
+
         $simpleXML = new \SimpleXMLElement($data);
+        /** @var \SimpleXMLElement $simpleXML */
         $simpleXML = $simpleXML->response;
+
+//        var_dump($simpleXML->asXML());
+//        die();
 
         // check response error
         if (isset($simpleXML->error)) {
@@ -985,29 +910,18 @@ class Request
             $results[] = $res;
         }
 
-        // word stat
-        $wordstat = preg_split('/,/', $simpleXML->wordstat);
-        if (!empty($wordstat)) {
-            $data = array();
-            foreach ($wordstat as $word) {
-                list($word, $count) = preg_split('/:/', $word);
-                $data[$word] = intval(trim($count));
-            }
-            $response->setWordStat($data);
-        }
-
         // total results
         $res = $simpleXML->xpath('found[attribute::priority="all"]');
         $total = (int) $res[0];
-        $response->setTotal($total);
+        $response->total($total);
 
         // total in human text
         $res = $simpleXML->xpath('found-human');
         $totalHuman = $res[0];
-        $response->setTotalHuman($totalHuman);
+        $response->totalHuman($totalHuman);
 
         // pages
-        $response->setPages($total / $this->getLimit());
+        $response->pages(floor($total / $this->limit()));
 
         return $response;
     }
