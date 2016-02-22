@@ -36,24 +36,19 @@ class Client
     /**
      * Highlight text
      *
-     * @param  \simpleXMLElement $xml
+     * @param  \simpleXMLElement|string $text
      * @return string
      */
-    public static function highlight($xml)
+    public static function highlight($text)
     {
-        if (is_string($xml)) {
-            $text = $xml;
-        } else {
-            // FIXME: very strangely method
-            $text = $xml->asXML();
+        if ($text instanceof \SimpleXMLElement) {
+            $text = $text->asXML();
         }
         $text = str_replace('<hlword>', '<mark>', $text);
         $text = str_replace('</hlword>', '</mark>', $text);
         $text = strip_tags($text, '<mark>');
-
         return $text;
     }
-
 
     /**
      * Return page bar array

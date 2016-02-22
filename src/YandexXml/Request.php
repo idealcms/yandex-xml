@@ -874,15 +874,10 @@ class Request
 
         $data = curl_exec($ch);
 
-//        $data = file_get_contents(dirname(dirname(__DIR__)) . '/example/response.xml');
-
-
         $simpleXML = new \SimpleXMLElement($data);
+
         /** @var \SimpleXMLElement $simpleXML */
         $simpleXML = $simpleXML->response;
-
-//        var_dump($simpleXML->asXML());
-//        die();
 
         // check response error
         if (isset($simpleXML->error)) {
@@ -902,13 +897,23 @@ class Request
             $res->domain = (string) $group->doc->domain;
             $res->title = isset($group->doc->title) ? Client::highlight($group->doc->title) : $res->url;
             $res->headline = isset($group->doc->headline) ? Client::highlight($group->doc->headline) : null;
-            $res->passages = isset($group->doc->passages->passage) ? Client::highlight($group->doc->passages) : null;
+
+            $passages = array();
+            if (isset($group->doc->passages->passage)) {
+                foreach ($group->doc->passages->passage as $passage) {
+                    $passages[] = Client::highlight($passage);
+                }
+            }
+            $res->passages = $passages;
+
             $res->sitelinks = isset($group->doc->snippets->sitelinks->link) ? Client::highlight(
                 $group->doc->snippets->sitelinks->link
             ) : null;
 
             $results[] = $res;
         }
+        $response->results($results);
+
 
         // total results
         $res = $simpleXML->xpath('found[attribute::priority="all"]');
