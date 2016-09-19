@@ -116,7 +116,7 @@ class Response
      * Set total results in human form
      *
      * @param  string $total
-     * @return Response
+     * @return string
      */
     protected function setTotalHuman($total)
     {

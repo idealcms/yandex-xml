@@ -33,6 +33,14 @@ try {
         ->proxy('host или ip', 'port', 'user, если требуется авторизация', 'pass, если требуется авторизация') // Если требуется проксирование запроса
         ->send()                        // Возвращает объект Response
     ;
+    
+    foreach ($response->results() as $i => $result) {
+        echo $result->url;
+        echo $result->domain;
+        echo $result->title;
+        echo $result->headline;
+        echo sizeof($result->passages);
+    }    
 }
 catch (YandexXmlException $e) {
     echo "\nВозникло исключение YandexXmlException:\n";
@@ -52,16 +60,17 @@ catch (Exception $e) {
  *  - domain
  *  - title
  *  - headline
+ *  - passages
  */
-$results = $response->getResults();
+$results = $response->results();
 
 /**
  * Возвращает строку "Нашлось 12 млн. результатов"
  */
-$total = $response->getTotalHuman();
+$total = $response->totalHuman();
 
 /**
  * Возвращает integer с общим количеством страниц результатов
  */
-$pages = $response->getPages();
+$pages = $response->pages();
 ```
