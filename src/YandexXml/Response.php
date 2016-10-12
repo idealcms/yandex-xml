@@ -92,7 +92,7 @@ class Response
      */
     protected function setTotal($total)
     {
-        $this->total = (int) $total;
+        $this->total = (int)$total;
         return $this;
     }
 

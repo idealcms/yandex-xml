@@ -53,13 +53,26 @@ try {
     echo "\nTotal resalts: " . $total . "\n";
     echo "\nPages: " . $pages . "\n";
     echo "\nResults: \n";
-    var_dump($response->results());
-}
-catch (YandexXmlException $e) {
+
+    foreach ($response->results() as $i => $result) {
+        echo Client::highlight($result->title), "<br/>";
+        echo $result->url, "<br/>";
+        echo $result->domain, "<br/>";
+
+        if (isset($result->headline)) {
+            echo $result->headline, "<br/>";
+        }
+
+        if ($result->passages) {
+            foreach ($result->passages as $passage) {
+                echo Client::highlight($passage), "<br/>";
+            }
+        }
+    }
+} catch (YandexXmlException $e) {
     echo "\nYandexXmlException occurred:\n";
     echo $e->getMessage() . "\n";
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     echo "\nAn unexpected error occurred:\n";
     echo $e->getMessage() . "\n";
 }
