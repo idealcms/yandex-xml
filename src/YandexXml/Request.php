@@ -220,8 +220,8 @@ class Request
 
     /**
      * Set Base URL
-     * @param String $baseUrl
-     * @return Request
+     * @param string $baseUrl
+     * @return Request|string
      */
     public function baseUrl($baseUrl = null)
     {
@@ -234,7 +234,7 @@ class Request
 
     /**
      * Set Base URL
-     * @param String $baseUrl
+     * @param string $baseUrl
      * @return Request
      */
     protected function setBaseUrl($baseUrl)
@@ -463,7 +463,7 @@ class Request
      * Theme
      *
      * @param  string $theme
-     * @return Request
+     * @return Request|string
      */
     public function theme($theme = null)
     {
@@ -571,7 +571,7 @@ class Request
      * Sort by ..
      *
      * @param  string $sortBy
-     * @return Request
+     * @return Request|string
      */
     public function sortBy($sortBy = null)
     {
@@ -604,14 +604,14 @@ class Request
      *
      * @param  string $groupBy
      * @param  string $mode
-     * @return Request
+     * @return Request|string
      */
     public function groupBy($groupBy = null, $mode = self::GROUP_MODE_FLAT)
     {
         if (is_null($groupBy)) {
             return $this->groupBy;
         } else {
-            return $this->setGroupBy($groupBy);
+            return $this->setGroupBy($groupBy, $mode);
         }
     }
 
@@ -688,7 +688,7 @@ class Request
      * @param  integer $port
      * @param  string $user
      * @param  string $pass
-     * @return Request
+     * @return Request|array
      */
     public function proxy($host = '', $port = 80, $user = null, $pass = null)
     {
@@ -722,7 +722,7 @@ class Request
     /**
      * Get proxy settings
      *
-     * @return Request
+     * @return array
      */
     protected function getProxy()
     {
