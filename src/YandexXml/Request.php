@@ -872,15 +872,13 @@ class Request
         }
 
         $data = curl_exec($ch);
+        /** @var \SimpleXMLElement $simpleXML */
         try {
           $simpleXML = new \SimpleXMLElement($data);
         } catch (Exception $e) {
           throw new BadDataException($data,$e->getMessage(),$e->getCode(),$e->getPrevious());
         }
-        
-        
 
-        /** @var \SimpleXMLElement $simpleXML */
         $simpleXML = $simpleXML->response;
 
         // check response error
