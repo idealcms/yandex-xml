@@ -32,6 +32,4 @@ class BadDataException extends YandexXmlException
     {
         $this->data = $data;
     }
-
-
 }
