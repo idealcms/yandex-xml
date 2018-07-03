@@ -3,6 +3,7 @@
 namespace AntonShevchuk\YandexXml;
 
 use AntonShevchuk\YandexXml\Exceptions\YandexXmlException;
+use AntonShevchuk\YandexXml\Exceptions\BadDataException;
 
 /**
  * Class YandexXml for work with Yandex.XML
@@ -523,9 +524,8 @@ class Request
     {
         if (is_null($l10n)) {
             return $this->l10n;
-        } else {
-            return $this->setL10n($l10n);
         }
+        return $this->setL10n($l10n);
     }
 
     /**
@@ -550,9 +550,8 @@ class Request
     {
         if (is_null($filter)) {
             return $this->filter;
-        } else {
-            return $this->setFilter($filter);
         }
+        return $this->setFilter($filter);
     }
 
     /**
@@ -577,9 +576,8 @@ class Request
     {
         if (is_null($sortBy)) {
             return $this->sortBy;
-        } else {
-            return $this->setSortBy($sortBy);
         }
+        return $this->setSortBy($sortBy);
     }
 
     /**
@@ -590,12 +588,11 @@ class Request
      */
     protected function setSortBy($sortBy)
     {
-        if ($sortBy == self::SORT_RLV || $sortBy == self::SORT_TM) {
+        if ($sortBy === self::SORT_RLV || $sortBy === self::SORT_TM) {
             $this->sortBy = $sortBy;
             return $this;
-        } else {
-            throw new \InvalidArgumentException();
         }
+        throw new \InvalidArgumentException();
     }
 
 
@@ -610,9 +607,8 @@ class Request
     {
         if (is_null($groupBy)) {
             return $this->groupBy;
-        } else {
-            return $this->setGroupBy($groupBy, $mode);
         }
+        return $this->setGroupBy($groupBy, $mode);
     }
 
     /**
@@ -624,17 +620,16 @@ class Request
      */
     protected function setGroupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
     {
-        if ($groupBy == self::GROUP_DEFAULT || $groupBy == self::GROUP_SITE) {
+        if ($groupBy === self::GROUP_DEFAULT || $groupBy === self::GROUP_SITE) {
             $this->groupBy = $groupBy;
-            if ($groupBy == self::GROUP_DEFAULT) {
+            if ($groupBy === self::GROUP_DEFAULT) {
                 $this->groupByMode = self::GROUP_MODE_FLAT;
             } else {
                 $this->groupByMode = $mode;
             }
             return $this;
-        } else {
-            throw new \InvalidArgumentException();
         }
+        throw new \InvalidArgumentException();
     }
 
     /**
@@ -648,9 +643,8 @@ class Request
     {
         if (is_null($option)) {
             return $this->getOption($option);
-        } else {
-            return $this->setOption($option, $value);
         }
+        return $this->setOption($option, $value);
     }
 
     /**
@@ -676,9 +670,8 @@ class Request
     {
         if (isset($this->options[$option])) {
             return $this->options[$option];
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -694,9 +687,8 @@ class Request
     {
         if (is_null($host)) {
             return $this->getProxy();
-        } else {
-            return $this->setProxy($host, $port, $user, $pass);
         }
+        return $this->setProxy($host, $port, $user, $pass);
     }
 
     /**
@@ -874,9 +866,11 @@ class Request
         $data = curl_exec($ch);
         /** @var \SimpleXMLElement $simpleXML */
         try {
-          $simpleXML = new \SimpleXMLElement($data);
-        } catch (Exception $e) {
-          throw new BadDataException($data,$e->getMessage(),$e->getCode(),$e->getPrevious());
+            $simpleXML = new \SimpleXMLElement($data);
+        } catch (\Exception $e) {
+            $exception = new BadDataException($e->getMessage(), $e->getCode(), $e->getPrevious());
+            $exception->setData($data);
+            throw $exception;
         }
 
         $simpleXML = $simpleXML->response;

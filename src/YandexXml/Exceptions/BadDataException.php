@@ -6,14 +6,32 @@ namespace AntonShevchuk\YandexXml\Exceptions;
  * Class BadDataException to work with YandexXml
  *
  * @author   gobzer <gobzer@gmail.com>
+ * @author   Anton Shevchuk <AntonShevchuk@gmail.com>
  *
  * @package  YandexXml
  */
-class BadDataException extends \Exception
+class BadDataException extends YandexXmlException
 {
-  public $bad_data;
-  public function __construct($bad_data,$message='', $code = 0, Exception $previous = null) {
-    $this->bad_data = $bad_data;
-    parent::__construct($message, $code, $previous);
-  }
+    /**
+     * @var string
+     */
+    protected $data;
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+
 }
