@@ -26,14 +26,14 @@ class Response
      *
      * @var integer
      */
-    protected $total = null;
+    protected $total = 0;
 
     /**
      * Total results in human form
      *
      * @var string
      */
-    protected $totalHuman = null;
+    protected $totalHuman = '';
 
     /**
      * Number of total pages
@@ -50,11 +50,7 @@ class Response
      */
     public function results($results = null)
     {
-        if (is_null($results)) {
-            return $this->results;
-        } else {
-            return $this->setResults($results);
-        }
+        return is_null($results) ? $this->results : $this->setResults($results);
     }
 
     /**
@@ -77,11 +73,7 @@ class Response
      */
     public function total($total = null)
     {
-        if (is_null($total)) {
-            return $this->total;
-        } else {
-            return $this->setTotal($total);
-        }
+        return is_null($total) ? $this->total : $this->setTotal($total);
     }
 
     /**
@@ -105,11 +97,7 @@ class Response
      */
     public function totalHuman($total = null)
     {
-        if (is_null($total)) {
-            return $this->totalHuman;
-        } else {
-            return $this->setTotalHuman($total);
-        }
+        return is_null($total) ? $this->totalHuman : $this->setTotalHuman($total);
     }
 
     /**
@@ -132,11 +120,7 @@ class Response
      */
     public function pages($pages = null)
     {
-        if (is_null($pages)) {
-            return $this->pages;
-        } else {
-            return $this->setPages($pages);
-        }
+        return is_null($pages) ? $this->pages : $this->setPages($pages);
     }
 
     /**

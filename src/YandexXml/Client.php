@@ -26,7 +26,7 @@ class Client
      */
     public static function request($user, $key)
     {
-        if (empty($user) or empty($key)) {
+        if (empty($user) || empty($key)) {
             throw new YandexXmlException(YandexXmlException::EMPTY_USER_OR_KEY);
         }
 
@@ -44,8 +44,7 @@ class Client
         if ($text instanceof \SimpleXMLElement) {
             $text = $text->asXML();
         }
-        $text = str_replace('<hlword>', '<mark>', $text);
-        $text = str_replace('</hlword>', '</mark>', $text);
+        $text = str_replace(['<hlword>', '</hlword>'], ['<mark>', '</mark>'], $text);
         $text = strip_tags($text, '<mark>');
         return $text;
     }
@@ -59,7 +58,7 @@ class Client
      */
     public static function pageBar($total, $current)
     {
-        $total = $total - 1;
+        $total--;
 
         $pageBar = array();
 

@@ -127,6 +127,7 @@ class Request
      *  - strict
      *  - moderate
      *  - none
+     *
      * @var string
      */
     const FILTER_STRICT = 'strict';
@@ -187,25 +188,26 @@ class Request
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'maxpassages' => 2,    // from 2 to 5
         'max-title-length' => 160, //
         'max-headline-length' => 160, //
         'max-passage-length' => 160, //
         'max-text-length' => 640, //
-    );
+    ];
 
     /**
      * Proxy params
      * Default - no proxy
+     *
      * @var array
      */
-    protected $proxy = array(
+    protected $proxy = [
         'host' => '',
         'port' => 0,
         'user' => '',
         'pass' => ''
-    );
+    ];
 
     /**
      * __construct
@@ -221,21 +223,21 @@ class Request
 
     /**
      * Set Base URL
+     *
      * @param string $baseUrl
+     *
      * @return Request|string
      */
     public function baseUrl($baseUrl = null)
     {
-        if (is_null($baseUrl)) {
-            return $this->baseUrl;
-        } else {
-            return $this->setBaseUrl($baseUrl);
-        }
+        return is_null($baseUrl) ? $this->baseUrl : $this->setBaseUrl($baseUrl);
     }
 
     /**
      * Set Base URL
+     *
      * @param string $baseUrl
+     *
      * @return Request
      */
     protected function setBaseUrl($baseUrl)
@@ -248,21 +250,19 @@ class Request
      * Query string
      *
      * @param  string $query
+     *
      * @return Request|string
      */
     public function query($query = null)
     {
-        if (is_null($query)) {
-            return $this->query;
-        } else {
-            return $this->setQuery($query);
-        }
+        return is_null($query) ? $this->query : $this->setQuery($query);
     }
 
     /**
      * Set query
      *
      * @param  string $query
+     *
      * @return Request
      */
     protected function setQuery($query)
@@ -275,26 +275,24 @@ class Request
      * Page
      *
      * @param  integer $page
+     *
      * @return Request|integer
      */
     public function page($page = null)
     {
-        if (is_null($page)) {
-            return $this->page;
-        } else {
-            return $this->setPage($page);
-        }
+        return is_null($page) ? $this->page : $this->setPage($page);
     }
 
     /**
      * Page number
      *
      * @param  integer $page
+     *
      * @return Request
      */
     protected function setPage($page)
     {
-        $this->page = (int) $page;
+        $this->page = (int)$page;
         return $this;
     }
 
@@ -302,26 +300,24 @@ class Request
      * Limit
      *
      * @param  integer $limit
+     *
      * @return Request|integer
      */
     public function limit($limit = null)
     {
-        if (is_null($limit)) {
-            return $this->limit;
-        } else {
-            return $this->setLimit($limit);
-        }
+        return is_null($limit) ? $this->limit : $this->setLimit($limit);
     }
 
     /**
      * Set limit
      *
      * @param  integer $limit
+     *
      * @return Request
      */
     protected function setLimit($limit)
     {
-        $this->limit = (int) $limit;
+        $this->limit = (int)$limit;
         return $this;
     }
 
@@ -329,21 +325,19 @@ class Request
      * Host
      *
      * @param  string $host
+     *
      * @return Request|string
      */
     public function host($host = null)
     {
-        if (is_null($host)) {
-            return $this->host;
-        } else {
-            return $this->setHost($host);
-        }
+        return is_null($host) ? $this->host : $this->setHost($host);
     }
 
     /**
      * Set host
      *
      * @param  string $host
+     *
      * @return Request
      */
     protected function setHost($host)
@@ -356,21 +350,19 @@ class Request
      * Site
      *
      * @param  string $site
+     *
      * @return Request|string
      */
     public function site($site = null)
     {
-        if (is_null($site)) {
-            return $this->site;
-        } else {
-            return $this->setSite($site);
-        }
+        return is_null($site) ? $this->site : $this->setSite($site);
     }
 
     /**
      * Set site
      *
      * @param  string $site
+     *
      * @return Request
      */
     protected function setSite($site)
@@ -383,21 +375,19 @@ class Request
      * Domain
      *
      * @param  string $domain
+     *
      * @return Request|string
      */
     public function domain($domain = null)
     {
-        if (is_null($domain)) {
-            return $this->domain;
-        } else {
-            return $this->setDomain($domain);
-        }
+        return is_null($domain) ? $this->domain : $this->setDomain($domain);
     }
 
     /**
      * Set domain
      *
      * @param  string $domain
+     *
      * @return Request
      */
     protected function setDomain($domain)
@@ -410,26 +400,24 @@ class Request
      * Cat
      *
      * @param  integer $cat
+     *
      * @return Request|integer
      */
     public function cat($cat = null)
     {
-        if (is_null($cat)) {
-            return $this->cat;
-        } else {
-            return $this->setCat($cat);
-        }
+        return is_null($cat) ? $this->cat : $this->setCat($cat);
     }
 
     /**
      * Set cat
      *
      * @param  integer $cat
+     *
      * @return Request
      */
     protected function setCat($cat)
     {
-        $this->cat = (int) $cat;
+        $this->cat = (int)$cat;
         return $this;
     }
 
@@ -437,26 +425,24 @@ class Request
      * Geo
      *
      * @param  integer $geo
+     *
      * @return Request|integer
      */
     public function geo($geo = null)
     {
-        if (is_null($geo)) {
-            return $this->geo;
-        } else {
-            return $this->setGeo($geo);
-        }
+        return is_null($geo) ? $this->geo : $this->setGeo($geo);
     }
 
     /**
      * Set geo
      *
      * @param  integer $geo
+     *
      * @return Request
      */
     protected function setGeo($geo)
     {
-        $this->geo = (int) $geo;
+        $this->geo = (int)$geo;
         return $this;
     }
 
@@ -464,21 +450,19 @@ class Request
      * Theme
      *
      * @param  string $theme
+     *
      * @return Request|string
      */
     public function theme($theme = null)
     {
-        if (is_null($theme)) {
-            return $this->theme;
-        } else {
-            return $this->setTheme($theme);
-        }
+        return is_null($theme) ? $this->theme : $this->setTheme($theme);
     }
 
     /**
      * Set theme
      *
      * @param  integer $theme
+     *
      * @return Request
      */
     protected function setTheme($theme)
@@ -491,21 +475,19 @@ class Request
      * lr
      *
      * @param  integer $lr
+     *
      * @return integer|Request
      */
     public function lr($lr = null)
     {
-        if (is_null($lr)) {
-            return $this->lr;
-        } else {
-            return $this->setLr($lr);
-        }
+        return is_null($lr) ? $this->lr : $this->setLr($lr);
     }
 
     /**
      * Set lr
      *
      * @param  integer $lr
+     *
      * @return Request
      */
     protected function setLr($lr)
@@ -518,20 +500,19 @@ class Request
      * Set/Get Localization
      *
      * @param  string $l10n
+     *
      * @return Request
      */
     public function l10n($l10n = null)
     {
-        if (is_null($l10n)) {
-            return $this->l10n;
-        }
-        return $this->setL10n($l10n);
+        return is_null($l10n) ? $this->l10n : $this->setL10n($l10n);
     }
 
     /**
      * Set localization
      *
      * @param  string $l10n
+     *
      * @return Request
      */
     protected function setL10n($l10n)
@@ -544,20 +525,19 @@ class Request
      * Set/Get Filter
      *
      * @param  string $filter
+     *
      * @return Request
      */
     public function filter($filter = null)
     {
-        if (is_null($filter)) {
-            return $this->filter;
-        }
-        return $this->setFilter($filter);
+        return is_null($filter) ? $this->filter : $this->setFilter($filter);
     }
 
     /**
      * Set Filter
      *
      * @param  string $filter
+     *
      * @return Request
      */
     protected function setFilter($filter)
@@ -570,20 +550,19 @@ class Request
      * Sort by ..
      *
      * @param  string $sortBy
+     *
      * @return Request|string
      */
     public function sortBy($sortBy = null)
     {
-        if (is_null($sortBy)) {
-            return $this->sortBy;
-        }
-        return $this->setSortBy($sortBy);
+        return is_null($sortBy) ? $this->sortBy : $this->setSortBy($sortBy);
     }
 
     /**
      * Set sort by
      *
      * @param  string $sortBy
+     *
      * @return Request
      */
     protected function setSortBy($sortBy)
@@ -601,14 +580,12 @@ class Request
      *
      * @param  string $groupBy
      * @param  string $mode
+     *
      * @return Request|string
      */
     public function groupBy($groupBy = null, $mode = self::GROUP_MODE_FLAT)
     {
-        if (is_null($groupBy)) {
-            return $this->groupBy;
-        }
-        return $this->setGroupBy($groupBy, $mode);
+        return is_null($groupBy) ? $this->groupBy : $this->setGroupBy($groupBy, $mode);
     }
 
     /**
@@ -616,6 +593,7 @@ class Request
      *
      * @param  string $groupBy
      * @param  string $mode
+     *
      * @return Request
      */
     protected function setGroupBy($groupBy, $mode = self::GROUP_MODE_FLAT)
@@ -629,29 +607,28 @@ class Request
             }
             return $this;
         }
-        throw new \InvalidArgumentException();
+        throw new \InvalidArgumentException('Invalid group params');
     }
 
     /**
      * Set option
      *
      * @param  string $option
-     * @param  mixed $value
+     * @param  mixed  $value
+     *
      * @return Request|mixed
      */
     public function option($option = null, $value = null)
     {
-        if (is_null($option)) {
-            return $this->getOption($option);
-        }
-        return $this->setOption($option, $value);
+        return is_null($option) ? $this->getOption($option) : $this->setOption($option, $value);
     }
 
     /**
      * Set option
      *
      * @param  string $option
-     * @param  mixed $value
+     * @param  mixed  $value
+     *
      * @return Request
      */
     protected function setOption($option, $value = null)
@@ -664,40 +641,37 @@ class Request
      * Get option
      *
      * @param string $option
+     *
      * @return mixed
      */
     protected function getOption($option)
     {
-        if (isset($this->options[$option])) {
-            return $this->options[$option];
-        }
-        return null;
+        return isset($this->options[$option]) ? $this->options[$option] : null;
     }
 
     /**
      * Set/Get proxy fo request
      *
-     * @param  string $host
+     * @param  string  $host
      * @param  integer $port
-     * @param  string $user
-     * @param  string $pass
+     * @param  string  $user
+     * @param  string  $pass
+     *
      * @return Request|array
      */
     public function proxy($host = '', $port = 80, $user = null, $pass = null)
     {
-        if (is_null($host)) {
-            return $this->getProxy();
-        }
-        return $this->setProxy($host, $port, $user, $pass);
+        return is_null($host) ? $this->getProxy() : $this->setProxy($host, $port, $user, $pass);
     }
 
     /**
      * Set proxy for request
      *
-     * @param  string $host
+     * @param  string  $host
      * @param  integer $port
-     * @param  string $user
-     * @param  string $pass
+     * @param  string  $user
+     * @param  string  $pass
+     *
      * @return Request
      */
     protected function setProxy($host = '', $port = 80, $user = null, $pass = null)
@@ -723,6 +697,7 @@ class Request
 
     /**
      * Apply proxy before each request
+     *
      * @param resource $ch
      */
     protected function applyProxy($ch)
@@ -751,6 +726,96 @@ class Request
             throw new YandexXmlException(YandexXmlException::EMPTY_QUERY);
         }
 
+        $this->request = $this->prepareXmlRequest();
+
+        // build GET data
+        $getData = array(
+            'user' => $this->user,
+            'key' => $this->key,
+        );
+
+        if ($this->lr) {
+            $getData['lr'] = $this->lr;
+        }
+        if ($this->l10n) {
+            $getData['l10n'] = $this->l10n;
+        }
+
+        $url = $this->baseUrl . '?' . http_build_query($getData);
+
+
+        $data = $this->sendCurl($url, $this->request->asXML());
+
+        /** @var \SimpleXMLElement $simpleXML */
+        try {
+            $simpleXML = new \SimpleXMLElement($data);
+        } catch (\Exception $e) {
+            $exception = new BadDataException($e->getMessage(), $e->getCode(), $e->getPrevious());
+            $exception->setData($data);
+            throw $exception;
+        }
+
+        $simpleXML = $simpleXML->response;
+
+        // check response error
+        if (isset($simpleXML->error)) {
+            $code = (int)$simpleXML->error->attributes()->code[0];
+            $message = (string)$simpleXML->error;
+
+            throw new YandexXmlException($message, $code);
+        }
+
+        $response = new Response();
+
+        // results
+        $results = array();
+        foreach ($simpleXML->results->grouping->group as $group) {
+            $res = new \stdClass();
+            $res->url = (string)$group->doc->url;
+            $res->domain = (string)$group->doc->domain;
+            $res->title = isset($group->doc->title) ? Client::highlight($group->doc->title) : $res->url;
+            $res->headline = isset($group->doc->headline) ? Client::highlight($group->doc->headline) : null;
+
+            $passages = array();
+            if (isset($group->doc->passages->passage)) {
+                foreach ($group->doc->passages->passage as $passage) {
+                    $passages[] = Client::highlight($passage);
+                }
+            }
+            $res->passages = $passages;
+
+            $res->sitelinks = isset($group->doc->snippets->sitelinks->link) ? Client::highlight(
+                $group->doc->snippets->sitelinks->link
+            ) : null;
+
+            $results[] = $res;
+        }
+        $response->results($results);
+
+
+        // total results
+        $res = $simpleXML->xpath('found[attribute::priority="all"]');
+        $total = (int)$res[0];
+        $response->total($total);
+
+        // total in human text
+        $res = $simpleXML->xpath('found-human');
+        $totalHuman = $res[0];
+        $response->totalHuman($totalHuman);
+
+        // pages
+        $response->pages(floor($total / $this->limit()));
+
+        return $response;
+    }
+
+    /**
+     * prepareRequest
+     *
+     * @return \SimpleXMLElement
+     */
+    protected function prepareXmlRequest()
+    {
         $xml = new \SimpleXMLElement("<?xml version='1.0' encoding='utf-8'?><request></request>");
 
         // add query to request
@@ -759,7 +824,7 @@ class Request
         // if isset "host"
         if ($this->host) {
             if (is_array($this->host)) {
-                $host_query = '(host:"' . join('" | host:"', $this->host) . '")';
+                $host_query = '(host:"' . implode('" | host:"', $this->host) . '")';
             } else {
                 $host_query = 'host:"' . $this->host . '"';
             }
@@ -774,7 +839,7 @@ class Request
         // if isset "site"
         if ($this->site) {
             if (is_array($this->site)) {
-                $site_query = '(site:"' . join('" | site:"', $this->site) . '")';
+                $site_query = '(site:"' . implode('" | site:"', $this->site) . '")';
             } else {
                 $site_query = 'site:"' . $this->site . '"';
             }
@@ -789,7 +854,7 @@ class Request
         // if isset "domain"
         if ($this->domain) {
             if (is_array($this->domain)) {
-                $domain_query = '(domain:' . join(' | domain:', $this->domain) . ')';
+                $domain_query = '(domain:' . implode(' | domain:', $this->domain) . ')';
             } else {
                 $domain_query = 'domain:' . $this->domain;
             }
@@ -817,6 +882,7 @@ class Request
 
         $xml->addChild('query', $query);
         $xml->addChild('page', $this->page);
+
         $groupings = $xml->addChild('groupings');
         $groupby = $groupings->addChild('groupby');
         $groupby->addAttribute('attr', $this->groupBy);
@@ -831,99 +897,33 @@ class Request
         $xml->addChild('max-passage-length', $this->options['max-passage-length']);
         $xml->addChild('max-text-length', $this->options['max-text-length']);
 
-        $this->request = $xml;
+        return $xml;
+    }
 
-
-        // build GET data
-        $getData = array(
-                'user' => $this->user,
-                'key' => $this->key,
-            );
-
-        if ($this->lr) {
-            $getData['lr'] = $this->lr;
-        }
-        if ($this->l10n) {
-            $getData['l10n'] = $this->l10n;
-        }
-
-        $url = $this->baseUrl .'?'. http_build_query($getData);
-
+    /**
+     * Send Curl request
+     *
+     * @param string $url
+     * @param string $data
+     *
+     * @return string
+     */
+    protected function sendCurl($url, $data)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/xml"));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Accept: application/xml"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/xml'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml->asXML());
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_POST, true);
 
         if (!empty($this->proxy['host'])) {
             $this->applyProxy($ch);
         }
 
-        $data = curl_exec($ch);
-        /** @var \SimpleXMLElement $simpleXML */
-        try {
-            $simpleXML = new \SimpleXMLElement($data);
-        } catch (\Exception $e) {
-            $exception = new BadDataException($e->getMessage(), $e->getCode(), $e->getPrevious());
-            $exception->setData($data);
-            throw $exception;
-        }
-
-        $simpleXML = $simpleXML->response;
-
-        // check response error
-        if (isset($simpleXML->error)) {
-            $code = (int) $simpleXML->error->attributes()->code[0];
-            $message = (string) $simpleXML->error;
-
-            throw new YandexXmlException($message, $code);
-        }
-
-        $response = new Response();
-
-        // results
-        $results = array();
-        foreach ($simpleXML->results->grouping->group as $group) {
-            $res = new \stdClass();
-            $res->url = (string) $group->doc->url;
-            $res->domain = (string) $group->doc->domain;
-            $res->title = isset($group->doc->title) ? Client::highlight($group->doc->title) : $res->url;
-            $res->headline = isset($group->doc->headline) ? Client::highlight($group->doc->headline) : null;
-
-            $passages = array();
-            if (isset($group->doc->passages->passage)) {
-                foreach ($group->doc->passages->passage as $passage) {
-                    $passages[] = Client::highlight($passage);
-                }
-            }
-            $res->passages = $passages;
-
-            $res->sitelinks = isset($group->doc->snippets->sitelinks->link) ? Client::highlight(
-                $group->doc->snippets->sitelinks->link
-            ) : null;
-
-            $results[] = $res;
-        }
-        $response->results($results);
-
-
-        // total results
-        $res = $simpleXML->xpath('found[attribute::priority="all"]');
-        $total = (int) $res[0];
-        $response->total($total);
-
-        // total in human text
-        $res = $simpleXML->xpath('found-human');
-        $totalHuman = $res[0];
-        $response->totalHuman($totalHuman);
-
-        // pages
-        $response->pages(floor($total / $this->limit()));
-
-        return $response;
+        return curl_exec($ch);
     }
 }
