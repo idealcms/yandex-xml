@@ -7,10 +7,10 @@ if (!isset($_SESSION['ttl'])) {
     $_SESSION['ttl'] = microtime(true);
 }
 
-require 'YandexXml/Client.php';
-require 'YandexXml/Request.php';
-require 'YandexXml/Response.php';
-require 'YandexXml/Exceptions/YandexXmlException.php';
+require __DIR__ . '/../src/YandexXml/Client.php';
+require __DIR__ . '/../src/YandexXml/Request.php';
+require __DIR__ . '/../src/YandexXml/Response.php';
+require __DIR__ . '/../src/YandexXml/Exceptions/YandexXmlException.php';
 
 use AntonShevchuk\YandexXml\Client;
 use AntonShevchuk\YandexXml\Request;

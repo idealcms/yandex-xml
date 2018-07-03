@@ -55,17 +55,17 @@ try {
     echo "\nResults: \n";
 
     foreach ($response->results() as $i => $result) {
-        echo Client::highlight($result->title), "<br/>";
-        echo $result->url, "<br/>";
-        echo $result->domain, "<br/>";
+        echo Client::highlight($result->title), '<br/>';
+        echo $result->url, '<br/>';
+        echo $result->domain, '<br/>';
 
         if (isset($result->headline)) {
-            echo $result->headline, "<br/>";
+            echo $result->headline, '<br/>';
         }
 
         if ($result->passages) {
             foreach ($result->passages as $passage) {
-                echo Client::highlight($passage), "<br/>";
+                echo Client::highlight($passage), '<br/>';
             }
         }
     }
